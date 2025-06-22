@@ -5,19 +5,11 @@ from utils import load_documents, split_chunks, embed_documents
 from sentence_transformers import SentenceTransformer
 from transformers import AutoTokenizer, AutoModelForSeq2SeqLM
 
-# =======================
-# Load Models
-# =======================
-# Sentence embedding model (lightweight)
 embed_model = SentenceTransformer("all-MiniLM-L6-v2")
 
-# Local language model for generation (FLAN-T5)
 tokenizer = AutoTokenizer.from_pretrained("google/flan-t5-small")
 model = AutoModelForSeq2SeqLM.from_pretrained("google/flan-t5-small")
 
-# =======================
-# Step 1: Load and prepare documents
-# =======================
 print("Loading documents...")
 documents = load_documents("data")
 chunks = []
@@ -26,21 +18,14 @@ for doc in documents:
 
 print(f"Total chunks: {len(chunks)}")
 
-# =======================
-# Step 2: Generate embeddings
-# =======================
 print("Embedding...")
 embeddings = embed_model.encode(chunks, show_progress_bar=True)
 
-# =======================
-# Step 3: Index with FAISS
-# =======================
 print("Indexing...")
 dimension = embeddings[0].shape[0]
 index = faiss.IndexFlatL2(dimension)
 index.add(np.array(embeddings))
 
-# Save index and chunks for future use
 os.makedirs("index", exist_ok=True)
 faiss.write_index(index, "index/notes.index")
 with open("index/chunks.txt", "w", encoding="utf-8") as f:
@@ -49,14 +34,10 @@ with open("index/chunks.txt", "w", encoding="utf-8") as f:
 
 print("Setup complete. You can now ask questions!")
 
-# =======================
-# Step 4: Query function
-# =======================
 def query_notes(question, top_k=3):
     q_embed = embed_model.encode([question])
     D, I = index.search(np.array(q_embed), top_k)
 
-    # Load chunks again (if you separate build/query phases, keep this step)
     with open("index/chunks.txt", "r", encoding="utf-8") as f:
         all_chunks = f.read().splitlines()
     
@@ -69,9 +50,6 @@ def query_notes(question, top_k=3):
 
     return answer
 
-# =======================
-# Step 5: Simple CLI
-# =======================
 while True:
     q = input("\n📝 Ask a question (or type 'exit'): ")
     if q.lower() == "exit":
