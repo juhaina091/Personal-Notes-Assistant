@@ -1,16 +1,9 @@
-# Python
 __pycache__/
 *.pyc
-
-# Model and index data
 index/
 *.pkl
 *.h5
-
-# Environment
 env/
 venv/
 .venv/
-
-# Misc
 .DS_Store
