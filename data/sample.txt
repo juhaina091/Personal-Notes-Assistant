@@ -1,0 +1,19 @@
+Naive Bayes is a probabilistic classifier based on Bayes' Theorem, assuming independence between features. It works well for text classification problems like spam detection or sentiment analysis.
+
+Support Vector Machines (SVM) are supervised learning models that find a hyperplane to separate classes in a high-dimensional space. They work well for classification and regression tasks.
+
+Gradient Descent is an optimization algorithm used to minimize the loss function by iteratively updating the parameters in the opposite direction of the gradient.
+
+In Natural Language Processing, tokenization is the process of breaking down text into smaller units, typically words or subwords, for processing.
+
+Overfitting occurs when a machine learning model performs well on training data but poorly on unseen data. It can be reduced using techniques like regularization or dropout.
+
+Bag of Words is a method of feature extraction from text, where each document is represented as a vector of word counts.
+
+The ReLU (Rectified Linear Unit) activation function outputs the input if positive, otherwise zero. It introduces non-linearity into neural networks and is widely used due to its simplicity and performance.
+
+Convolutional Neural Networks (CNNs) are a class of deep neural networks used primarily for image recognition, using convolutional layers to detect local patterns.
+
+Recurrent Neural Networks (RNNs) are used for sequential data like text or time series. They maintain hidden states to retain memory across steps.
+
+An epoch is one full pass through the training dataset during model training. Training for multiple epochs improves learning but may risk overfitting.
